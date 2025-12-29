@@ -1,60 +1,96 @@
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+    <div class="min-h-screen flex items-center justify-center bg-black text-white">
 
-        <x-validation-errors class="mb-4" />
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4')]
+                    bg-cover bg-center opacity-20"></div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+        <div class="relative z-10 w-full max-w-md bg-black/80 p-8 rounded-xl shadow-2xl">
 
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
+            <h1 class="text-3xl font-bold text-center text-red-600 mb-2">
+                ÚNETE A CINEMATCH
+            </h1>
 
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
+            <p class="text-center text-gray-400 mb-6">
+                Crea tu cuenta y conecta por el cine 🎬
+            </p>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+            <x-validation-errors class="mb-4" />
 
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+            <form method="POST" action="{{ route('register') }}" class="space-y-4">
+                @csrf
 
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Nombre completo"
+                    value="{{ old('name') }}"
+                    required
+                    autofocus
+                    class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700
+                           focus:ring-2 focus:ring-red-600 focus:outline-none"
+                />
 
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
-                </div>
-            @endif
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Correo electrónico"
+                    value="{{ old('email') }}"
+                    required
+                    class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700
+                           focus:ring-2 focus:ring-red-600 focus:outline-none"
+                />
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Contraseña"
+                    required
+                    class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700
+                           focus:ring-2 focus:ring-red-600 focus:outline-none"
+                />
+
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    placeholder="Confirmar contraseña"
+                    required
+                    class="w-full px-4 py-3 rounded bg-gray-800 border border-gray-700
+                           focus:ring-2 focus:ring-red-600 focus:outline-none"
+                />
+
+                @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                    <div class="text-sm text-gray-400">
+                        <label class="flex items-start gap-2">
+                            <input type="checkbox" name="terms" required class="mt-1">
+                            <span>
+                                Acepto los
+                                <a href="{{ route('terms.show') }}" target="_blank" class="underline text-red-500">
+                                    Términos de Servicio
+                                </a>
+                                y la
+                                <a href="{{ route('policy.show') }}" target="_blank" class="underline text-red-500">
+                                    Política de Privacidad
+                                </a>
+                            </span>
+                        </label>
+                    </div>
+                @endif
+
+                <button
+                    type="submit"
+                    class="w-full bg-red-600 hover:bg-red-700 transition py-3 rounded font-semibold"
+                >
+                    Crear cuenta
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-400 mt-6">
+                ¿Ya tienes cuenta?
+                <a href="{{ route('login') }}" class="text-red-500 hover:underline">
+                    Inicia sesión
                 </a>
+            </p>
 
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
+        </div>
+    </div>
 </x-guest-layout>

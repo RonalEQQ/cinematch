@@ -20,6 +20,7 @@ class MovieController extends Controller
             'description' => 'nullable|string',
             'year' => 'required|integer|min:1900|max:' . date('Y'),
             'genre' => 'required|string|max:100',
+            'image_path' => 'nullable|string|max:255',
         ]);
 
         $movie = Movie::create($validated);
@@ -55,6 +56,7 @@ class MovieController extends Controller
             'description' => 'nullable|string',
             'year' => 'sometimes|required|integer|min:1900|max:' . date('Y'),
             'genre' => 'sometimes|required|string|max:100',
+            'image_path' => 'nullable|string|max:255',
         ]);
 
         $movie->update($validated);

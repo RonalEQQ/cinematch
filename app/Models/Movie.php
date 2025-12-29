@@ -14,6 +14,7 @@ class Movie extends Model
         'description',
         'year',
         'genre',
+        'image_path'
     ];
 
     protected $casts = [
